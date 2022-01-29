@@ -9,6 +9,7 @@ use App\Http\Resources\Api\V1\PostResource;
 use Domain\Blogging\Models\Post;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Infrasturcture\Http\Responses\ApiResponse;
 use JustSteveKing\StatusCode\Http;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -20,9 +21,9 @@ class IndexController extends Controller
             subject: Post::class,
         )->allowedIncludes(
             includes: ['user']
-        )->published()->paginate(3);
+        )->paginate();
 
-        return response()->json(
+        return ApiResponse::handle(
             data: PostResource::collection(
                 resource: $posts
             ),
