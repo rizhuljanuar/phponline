@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Blogging\Jobs;
 
 use Domain\Blogging\Actions\CreatePost as ActionsCreatePost;
+use Domain\Blogging\Aggregates\PostAggregate;
 use Domain\Blogging\ValueObjects\PostValueObject;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -12,6 +13,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Str;
 
 class CreatePost implements ShouldQueue
 {
@@ -21,13 +23,16 @@ class CreatePost implements ShouldQueue
     use InteractsWithQueue; 
 
     public function __construct(
-        public PostValueObject $object
+        public PostValueObject $object,
     ){}
 
     public function handle(): void
     {
-        ActionsCreatePost::handle(
+        PostAggregate::retrieve(
+            uuid: Str::uuid()->toString(),
+        )->createPost(
             object: $this->object,
-        );
+            userID: 1,
+        )->persist();
     }
 }
