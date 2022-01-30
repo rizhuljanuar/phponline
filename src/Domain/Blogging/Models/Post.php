@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Blogging\Models;
 
 use Domain\Blogging\Models\Builders\PostBuilder;
+use Domain\Blogging\Models\Collections\PostCollection;
 use Domain\Blogging\Models\Concerns\IsPost;
 use Domain\Shared\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,6 +20,7 @@ class Post extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'uuid',
         'key',
         'title',
         'slug',
@@ -41,14 +43,21 @@ class Post extends Model
     {
         return $this->belongsTo(
             related: User::class, 
-            foreignKey: 'user_id'
+            foreignKey: 'user_id',
+        );
+    }
+
+    public function newCollection(array $models = []): PostCollection
+    {
+        return new PostCollection(
+            items: $models,
         );
     }
 
     public function newEloquentBuilder($query): PostBuilder
     {
         return new PostBuilder(
-            query: $query
+            query: $query,
         );
     }
 }

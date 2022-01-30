@@ -12,6 +12,7 @@ trait IsPost
     public static function bootIsPost(): void
     {
         static::creating(function (Model $model) {
+            $model->uuid = Str::uuid()->toString();
             $model->key = Str::key(substr(strtolower(class_basename($model)), 0, 3) . '_');
             $model->slug = Str::slug($model->title);
         });

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Models\Post;
-use App\Models\User;
+use Domain\Blogging\Models\Post;
+use Domain\Shared\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,12 +18,19 @@ class DatabaseSeeder extends Seeder
         //     );
         // }
 
-        Post::factory()->count(20)->for(
-            User::factory()->create([
-                'first_name' => 'Rizhul',
-                'last_name' => 'Januar Ramadhan',
-                'email' => 'rayjam66@gmail.com',
-            ])
-        )->create();
+        // Post::factory()->count(20)->for(
+        //     User::factory()->create([
+        //         'first_name' => 'Rizhul',
+        //         'last_name' => 'Januar Ramadhan',
+        //         'email' => 'rayjam66@gmail.com',
+        //     ])
+        // )->create();
+
+        User::create([
+            'first_name' => 'Rizhul',
+            'last_name' => 'Januar Ramadhan',
+            'email' => 'rayjam66@gmail.com',
+            'password' => 'password'
+        ]);
     }
 }

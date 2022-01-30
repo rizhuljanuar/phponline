@@ -12,6 +12,8 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+
+            $table->string('uuid');
             $table->string('key')->unique();
 
             $table->string('title')->unique();

@@ -10,11 +10,12 @@ use Illuminate\Support\Str;
 
 class CreatePost
 {
-    public static function handle(PostValueObject $object): Post
+    public static function handle(PostValueObject $object, string $uuid): Post
     {
         return Post::create(array_merge(
             $object->toArray(),
             [
+                'uuid' => $uuid,
                 'slug' => Str::slug($object->title),
                 'user_id' => 1
             ],
