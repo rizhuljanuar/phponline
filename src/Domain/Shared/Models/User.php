@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\Shared\Models;
 
+use Database\Factories\UserFactory;
+use Domain\Blogging\Models\Post;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -55,5 +57,10 @@ class User extends Authenticatable
             related: Post::class, 
             foreignKey: 'user_id'
         );
+    }
+
+    protected static function newFactory(): UserFactory
+    {
+        return resolve(UserFactory::class);
     }
 }

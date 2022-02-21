@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->boolean('published')->default(false);
 
-            $table->foreignId('user_id')->index()->constrained()->onDelete('CASCADE');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('CASCADE');
             
             $table->timestamps();
             $table->softDeletes();

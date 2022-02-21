@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Blogging\Models;
 
+use Database\Factories\PostFactory;
 use Domain\Blogging\Models\Builders\PostBuilder;
 use Domain\Blogging\Models\Collections\PostCollection;
 use Domain\Blogging\Models\Concerns\IsPost;
@@ -45,6 +46,11 @@ class Post extends Model
             related: User::class, 
             foreignKey: 'user_id',
         );
+    }
+
+    protected static function newFactory(): PostFactory
+    {
+        return resolve(PostFactory::class);
     }
 
     public function newCollection(array $models = []): PostCollection

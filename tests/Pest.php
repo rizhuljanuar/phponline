@@ -11,9 +11,10 @@
 |
 */
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-uses(TestCase::class)->in('API');
+uses(TestCase::class, RefreshDatabase::class)->in('API', 'Web', 'Domain');
 
 /*
 |--------------------------------------------------------------------------
